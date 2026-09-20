@@ -110,6 +110,12 @@ api.add_resource(Admin_Users, '/admin_users')
 api.add_resource(Admin_Profile, '/admin/profile')
 api.add_resource(User_Profile, '/user/profile')
 
+# Lightweight health check for uptime monitors (keeps Render free tier awake).
+# Does no DB/cache work so external pings stay cheap.
+@app.route("/health")
+def health():
+    return {"status": "ok"}, 200
+
 # Catch-all route to serve Vue
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
