@@ -24,8 +24,10 @@
     <div class="row">
       <div class="col-lg-8"> <h1 class="display-3 fw-bold text-white">Ace Your Quizzes with Confidence!</h1>
         <p class="lead my-4">Practice, progress and perform better — all in one place.</p>
-        <router-link to="/login" class="btn btn-accent-custom btn-lg me-sm-2">Start Now</router-link>
-        <router-link to="/signup" class="btn btn-outline-light btn-lg mt-3 mt-sm-0">Join Free</router-link>
+        <div class="d-flex flex-column flex-sm-row align-items-center gap-3 justify-content-center justify-content-lg-start">
+          <router-link to="/login" class="btn btn-accent-custom btn-lg">Start Now</router-link>
+          <router-link to="/signup" class="btn btn-outline-light btn-lg">Join Free</router-link>
+        </div>
       </div>
     </div>
   </div>

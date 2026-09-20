@@ -1,0 +1,35 @@
+name: Keep Render app awake
+
+# Pings the deployed app's /health endpoint so the Render free tier
+# (which sleeps after 15 min of no inbound traffic) stays warm.
+# This is a BACKUP to an external monitor like UptimeRobot.
+
+on:
+  schedule:
+    # Every 5 minutes. GitHub cron can be delayed under load, so 5 min
+    # gives margin to still land inside Render's 15-min sleep window.
+    - cron: "*/5 * * * *"
+  # Allow manual runs from the Actions tab for testing.
+  workflow_dispatch:
+
+# If a run is still going when the next fires, don't pile them up.
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping /health
+        run: |
+          echo "Pinging health endpoint at $(date -u)…"
+          # --retry with --retry-all-errors absorbs Render cold starts
+          # (a sleeping instance can take 30-60s to wake up).
+          curl --fail --show-error --silent --location \
+               --retry 5 --retry-delay 15 --retry-all-errors \
+               --connect-timeout 30 --max-time 90 \
+               "https://quiz-app-v2-py9b.onrender.com/health"
+          echo ""
+          echo "Ping succeeded."
