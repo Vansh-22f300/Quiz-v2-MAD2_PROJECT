@@ -48,40 +48,42 @@
             </h2>
             <div :id="'collapse' + subject.id" class="accordion-collapse collapse" :aria-labelledby="'heading' + subject.id" data-bs-parent="#subjectsAccordion">
               <div class="accordion-body">
-                <div class="d-flex justify-content-between align-items-start mb-4">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start gap-2 mb-4">
                   <div>
                     <p class="mb-1"><strong>Description:</strong> {{ subject.description }}</p>
                     <small class="text-muted"><strong>Code:</strong> {{ subject.code }} | <strong>Credits:</strong> {{ subject.credits }}</small>
                   </div>
-                  <div class="d-flex gap-2">
+                  <div class="d-flex flex-wrap gap-2">
                     <button class="btn btn-sm btn-outline-primary" @click="editSubjectModal(subject)"><i class="fas fa-edit me-1"></i> Edit Subject</button>
                     <button class="btn btn-sm btn-outline-danger" @click="deleteSubject(subject.id)"><i class="fas fa-trash me-1"></i> Delete Subject</button>
                   </div>
                 </div>
 
                 <h6 class="fw-bold mb-3">Chapters</h6>
-                <table class="table modern-table">
-                  <thead>
-                    <tr>
-                      <th>Chapter Name</th>
-                      <th>Description</th>
-                      <th class="text-end">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-if="!subject.chapters || subject.chapters.length === 0">
-                      <td colspan="3" class="text-center text-muted py-3">No chapters added yet.</td>
-                    </tr>
-                    <tr v-for="chapter in subject.chapters" :key="chapter.id">
-                      <td>{{ chapter.name }}</td>
-                      <td>{{ chapter.description }}</td>
-                      <td class="text-end">
-                        <button class="btn btn-sm btn-outline-secondary me-2" @click="editChapterModal(chapter)"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" @click="deleteChapter(chapter.id)"><i class="fas fa-trash"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  <table class="table modern-table">
+                    <thead>
+                      <tr>
+                        <th>Chapter Name</th>
+                        <th>Description</th>
+                        <th class="text-end">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-if="!subject.chapters || subject.chapters.length === 0">
+                        <td colspan="3" class="text-center text-muted py-3">No chapters added yet.</td>
+                      </tr>
+                      <tr v-for="chapter in subject.chapters" :key="chapter.id">
+                        <td>{{ chapter.name }}</td>
+                        <td>{{ chapter.description }}</td>
+                        <td class="text-end">
+                          <button class="btn btn-sm btn-outline-secondary me-2" @click="editChapterModal(chapter)"><i class="fas fa-edit"></i></button>
+                          <button class="btn btn-sm btn-outline-danger" @click="deleteChapter(chapter.id)"><i class="fas fa-trash"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 
                 <button class="btn btn-sm btn-accent-custom mt-3" @click="openAddChapterModal(subject.id)">
                   <i class="fas fa-plus me-1"></i>Add Chapter

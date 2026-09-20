@@ -724,3 +724,166 @@ h1, h2, h3, h4, h5, h6, .fw-bold, .fw-semibold {
 .options-list li.correct-answer i {
   color: #198754;
 }
+
+
+/* =========================================================================
+   25. DATA CARD (used across dashboards but never defined before)
+   White surface that wraps tables, charts and quiz forms.
+   ========================================================================= */
+.data-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E0E7FF;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.04);
+}
+
+/* Prevent any oversized element (wide tables, charts) from forcing the
+   whole page to scroll sideways on small screens. */
+img,
+table,
+canvas {
+  max-width: 100%;
+}
+
+/* =========================================================================
+   26. RESPONSIVE / MOBILE LAYOUT
+   All 8 dashboard pages share .admin-layout > .sidebar + .main-content.
+   Below 992px we turn the fixed 260px sidebar into a sticky top bar with a
+   horizontally scrollable nav. No component markup changes required.
+   ========================================================================= */
+@media (max-width: 991.98px) {
+  .admin-layout {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Sidebar becomes a full-width sticky top bar */
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar-header {
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .sidebar-header h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0;
+  }
+
+  /* Hide the "Admin Panel" / "User Dashboard" subtitle to save space */
+  .sidebar-header small {
+    display: none;
+  }
+
+  /* Nav links go horizontal and scroll sideways if they overflow */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  .sidebar-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .sidebar-nav .nav-link {
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  /* Active indicator moves from the left edge to the bottom edge.
+     Override the global .router-link-exact-active left-border rule. */
+  .sidebar-nav .nav-link.active,
+  .sidebar-nav .router-link-exact-active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent-color);
+  }
+
+  .sidebar-footer {
+    padding: 0.75rem 1rem;
+    border-top: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+  }
+  .sidebar-footer .nav-link {
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  /* Main content: reclaim the horizontal space and tighten padding */
+  .main-content {
+    padding: 1.25rem;
+  }
+
+  /* Header search bar should not be pinned to a narrow max-width */
+  .content-header .search-wrapper,
+  .search-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+  .content-header .d-flex {
+    width: 100%;
+  }
+
+  /* Start_Quiz: show the status/timer + submit panel ABOVE the questions */
+  .quiz-info-panel {
+    order: -1;
+  }
+  .quiz-info-panel .sticky-top {
+    position: static !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 575.98px) {
+  .main-content {
+    padding: 1rem 0.85rem;
+  }
+
+  .data-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .content-header h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Landing hero: let it size to content instead of a tall fixed height */
+  .hero-section {
+    height: auto;
+    min-height: auto;
+    padding: 4rem 0;
+  }
+  .hero-section .display-3 {
+    font-size: 2rem;
+  }
+
+  /* CTA + auth cards breathe a little less on tiny screens */
+  .cta-section {
+    padding: 2rem 1.25rem !important;
+  }
+
+  .accordion-body {
+    padding: 1rem;
+  }
+}
